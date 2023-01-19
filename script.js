@@ -2,12 +2,10 @@ const movieSearchBox = document.getElementById('movie-search-box');
 const searchList = document.getElementById('search-list');
 const resultGrid = document.getElementById('result-grid');
 
-// load movies from API
 async function loadMovies(searchTerm) {
     const URL = `http://www.omdbapi.com/?apikey=ea744c7d&s=${searchTerm}`;
     const res = await fetch(`${URL}`);
     const data = await res.json();
-    // console.log(data.Search);
     if (data.Response == "True") displayMovieList(data.Search);
 }
 
@@ -50,12 +48,10 @@ function loadMovieDetails() {
     const searchListMovies = searchList.querySelectorAll('.search-list-item');
     searchListMovies.forEach(movie => {
         movie.addEventListener('click', async () => {
-            // console.log(movie.dataset.id);
             searchList.classList.add('hide-search-list');
             movieSearchBox.value = "";
             const result = await fetch(`http://www.omdbapi.com/?i=${movie.dataset.id}&apikey=ea744c7d`);
             const movieDetails = await result.json();
-            // console.log(movieDetails);
             displayMovieDetails(movieDetails);
         });
     });
